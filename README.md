@@ -16,7 +16,7 @@ import { extensions, classicEmberSupport, ember } from '@embroider/vite';
 import { babel } from '@rollup/plugin-babel';
 
 // import one of these for testing
-import { maybeBabelFilter, maybeBabelRegexFilter, regexFitler }
+import { maybeBabelFilter, maybeBabelRegexFilter, regexFilter }
 
 
 export default defineConfig({
@@ -43,9 +43,9 @@ Each of the different functions have different charactistics so that's why we ar
 
 `maybeBabelRegexFilter` tries to do the same as the above function, but completely relying on Regular Expressions, the theory being that this can make use of more of the `rollup` rust infrastructure because it doesn't need to pass the code back and forth between JS and rust (which can be expensive)
 
-### regexFitler
+### regexFilter
 
-`regexFitler` is an extension of `maybeBabelRegexFilter` but with the ability to extend what is being covered by the regexes
+`regexFilter` is an extension of `maybeBabelRegexFilter` but with the ability to extend what is being covered by the regexes
 
 for example, to also run babel on files that import from ember-concurrency
 
@@ -66,7 +66,7 @@ export default defineConfig({
       babelHelpers: 'runtime',
       extensions,
       // and pass the function you are using here
-      filter: regexFitler({
+      filter: regexFilter({
         code: ['ember-concurrency'],
       }),
     }),
@@ -93,7 +93,7 @@ export default defineConfig({
       babelHelpers: 'runtime',
       extensions,
       // and pass the function you are using here
-      filter: regexFitler({
+      filter: regexFilter({
         code: ['myPolyfilledAPICall(', /\bintl\.formatMessage\b/],
       }),
     }),
