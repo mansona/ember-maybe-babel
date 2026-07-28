@@ -2,22 +2,27 @@
   "name": "ember-maybe-babel",
   "version": "0.0.0",
   "description": "Experimental filter functions for improving babel performance in Ember applications",
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mansona/ember-maybe-babel.git"
+  },
+  "license": "MIT",
+  "author": "Chris Manson <chris@manson.ie>",
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "Chris Manson <chris@manson.ie>",
-  "license": "MIT",
-  "packageManager": "pnpm@11.17.0+sha512.cca3cea332ad254bb84145f966d19f4879615210346fc92c79a047f23a0d7b3cca3c3792f0076ba1f1831d277efbcf0a9119b31a9a60eca7fb3d6231f331ef72",
-  "devDependencies": {
-    "@eslint/js": "^10.0.1",
-    "eslint": "^10.8.0",
-    "globals": "^17.8.0"
-  },
   "dependencies": {
     "@rolldown/pluginutils": "^1.0.1",
     "oxc-parser": "^0.138.0"
-  }
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.8.0",
+    "globals": "^17.8.0",
+    "release-plan": "^0.18.0"
+  },
+  "packageManager": "pnpm@11.17.0+sha512.cca3cea332ad254bb84145f966d19f4879615210346fc92c79a047f23a0d7b3cca3c3792f0076ba1f1831d277efbcf0a9119b31a9a60eca7fb3d6231f331ef72"
 }
