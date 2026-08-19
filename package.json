@@ -15,8 +15,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@embroider/vite": "^1.0.0",
     "@rolldown/pluginutils": "^1.0.1",
-    "oxc-parser": "^0.138.0"
+    "oxc-parser": "^0.138.0",
+    "zimmerframe": "^1.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
