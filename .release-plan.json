@@ -1,22 +1,18 @@
 {
   "solution": {
     "ember-maybe-babel": {
-      "impact": "major",
-      "oldVersion": "0.0.0",
-      "newVersion": "1.0.0",
+      "impact": "patch",
+      "oldVersion": "1.0.0",
+      "newVersion": "1.0.1",
       "tagName": "latest",
       "constraints": [
         {
-          "impact": "major",
-          "reason": "Appears in changelog section :boom: Breaking Change"
-        },
-        {
           "impact": "patch",
-          "reason": "Appears in changelog section :house: Internal"
+          "reason": "Appears in changelog section :bug: Bug Fix"
         }
       ],
       "pkgJSONPath": "./package.json"
     }
   },
-  "description": "## Release (2026-07-28)\n\n* ember-maybe-babel 1.0.0 (major)\n\n#### :boom: Breaking Change\n* `ember-maybe-babel`\n  * [#1](https://github.com/mansona/ember-maybe-babel/pull/1) implement basic filters ([@mansona](https://github.com/mansona))\n\n#### :house: Internal\n* `ember-maybe-babel`\n  * [#2](https://github.com/mansona/ember-maybe-babel/pull/2) start using release-plan ([@mansona](https://github.com/mansona))\n\n#### Committers: 1\n- Chris Manson ([@mansona](https://github.com/mansona))\n"
+  "description": "## Release (2026-08-19)\n\n* ember-maybe-babel 1.0.1 (patch)\n\n#### :bug: Bug Fix\n* `ember-maybe-babel`\n  * [#4](https://github.com/mansona/ember-maybe-babel/pull/4) add missing dependencies ([@mansona](https://github.com/mansona))\n\n#### Committers: 1\n- Chris Manson ([@mansona](https://github.com/mansona))\n"
 }
