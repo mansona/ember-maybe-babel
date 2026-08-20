@@ -30,6 +30,24 @@ const babelRequiredImports = [
  * @returns 
  */
 export async function maybeBabelFilter(id, code) {
+  // because babel is in charge of stripping types we always need to run babel on any
+  // TS or GTS file
+  if (id.endsWith('.ts') || id.endsWith('.gts')) {
+    return true;
+  }
+
+  // we know already that all gjs files (at least ones with a <template>) will 
+  // need to be run through babel
+  if (id.endsWith('.gjs')) {
+    return true;
+  }
+
+  // this is needed because we need to transform the `@embroider/babel/runtime.js` file 
+  // so that it actually contains all the configured config
+  if (id.indludes('@embroider/babel')) {
+    return true;
+  }
+
   const estree = await oxcParse(id, code);
 
   let hasDecorators = false;
