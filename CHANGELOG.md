@@ -1,5 +1,16 @@
 # Changelog
 
+## Release (2026-08-25)
+
+* ember-maybe-babel 1.0.3 (patch)
+
+#### :bug: Bug Fix
+* `ember-maybe-babel`
+  * [#8](https://github.com/mansona/ember-maybe-babel/pull/8) add tests and fix typos ([@mansona](https://github.com/mansona))
+
+#### Committers: 1
+- Chris Manson ([@mansona](https://github.com/mansona))
+
 ## Release (2026-08-20)
 
 * ember-maybe-babel 1.0.2 (patch)
