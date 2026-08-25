@@ -44,7 +44,7 @@ export async function maybeBabelFilter(id, code) {
 
   // this is needed because we need to transform the `@embroider/babel/runtime.js` file 
   // so that it actually contains all the configured config
-  if (id.indludes('@embroider/babel')) {
+  if (id.includes('@embroider/macros')) {
     return true;
   }
 
