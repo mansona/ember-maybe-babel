@@ -17,11 +17,16 @@
   "scripts": {
     "build": "vite build",
     "start": "vite",
-    "test": "vite build --mode development && ember test --path dist"
+    "test": "pnpm test:maybeBabelFilter && pnpm test:maybeBabelRegexFilter && pnpm test:regexFilter",
+    "test:maybeBabelFilter": "MAYBE_BABEL_FILTER=maybeBabelFilter pnpm test:one",
+    "test:maybeBabelRegexFilter": "MAYBE_BABEL_FILTER=maybeBabelRegexFilter pnpm test:one",
+    "test:regexFilter": "MAYBE_BABEL_FILTER=regexFilter pnpm test:one",
+    "test:one": "vite build --mode development && ember test --path dist"
   },
   "devDependencies": {
     "@babel/core": "^7.29.7",
     "@babel/plugin-transform-runtime": "^7.29.7",
+    "@babel/plugin-transform-typescript": "^7.29.7",
     "@babel/runtime": "^7.29.7",
     "@ember/optional-features": "^3.0.0",
     "@ember/string": "^4.0.1",
@@ -33,7 +38,7 @@
     "@embroider/legacy-inspector-support": "^0.1.3",
     "@embroider/macros": "^1.20.6",
     "@embroider/router": "^3.0.6",
-    "@embroider/vite": "^1.7.9",
+    "@embroider/vite": "^1.7.13",
     "@glimmer/component": "^2.1.1",
     "@rollup/plugin-babel": "^7.1.0",
     "babel-plugin-ember-template-compilation": "^4.0.0",

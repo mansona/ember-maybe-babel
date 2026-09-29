@@ -95,6 +95,10 @@ const decoratorRegex = /(?<![\w'"`])(?<!\*\s+)(?<!\/\/[^\n]*)(?<!\/\*[^\n]*)@\w+
 
 const nodeModulesPattern = /\/node_modules\//;
 
+// babel strips types, and @embroider/vite makes rolldown read .ts as plain JS,
+// so these always need babel, like in maybeBabelFilter
+const alwaysBabelPattern = /\.(ts|gts|gjs)(\?.*)?(#.*)?$/;
+
 const regExpCharactersRegExp = /[\\^$.*+?()[\]{}|]/g;
 /**
  * 
@@ -115,6 +119,7 @@ export const maybeBabelRegexFilter = [
     and(
       id(extensionRegExp), // Is one of the babel-supported extensions
       or(
+        id(alwaysBabelPattern), // Is a .ts, .gts or .gjs file
         code(importsRegex), // Imports one of our listed modules
         and(not(id(nodeModulesPattern)), code(decoratorRegex)) // Is local app code which uses a decorator
       )
@@ -140,7 +145,7 @@ export const maybeBabelRegexFilter = [
 export function regexFilter(options) {
   const importsRegex = new RegExp(
     babelRequiredImports
-      .concat(options?.include?.imports ?? [])
+      .concat(options?.include ?? [])
       .map(escapeRegExp)
       .join('|')
   );
@@ -151,9 +156,8 @@ export function regexFilter(options) {
         // is one of the babel-supported extensions
         id(extensionRegExp),
         or(
-          // always run gts and gjs through babel
-          id(/\.gts$/),
-          id(/\.gjs$/),
+          // always run ts, gts and gjs through babel
+          id(alwaysBabelPattern),
           // imports one of the modules above
           code(importsRegex),
           // (a common way to do translations)
@@ -164,7 +168,7 @@ export function regexFilter(options) {
           //     (ignore decorator transforming entirely?)
           and(not(id(nodeModulesPattern)), code(decoratorRegex)),
           // user provided additional opt-ins to the regex here
-          ...(options?.include?.code?.map(x => code(x)) ?? [])
+          ...(options?.code?.map(x => code(x)) ?? [])
         )
       )
     ),

@@ -8,16 +8,13 @@ Please open an issue detailing which function was the best for you and if any of
 
 ## Usage
 
-To use this package you can import any of the available filters and pass them to the `filter` option of `@rollup/plugin-babel`: 
+`maybeBabelFilter` is a function. Pass it to the `filter` option of `@rollup/plugin-babel`:
 
 ```js
 import { defineConfig } from 'vite';
 import { extensions, classicEmberSupport, ember } from '@embroider/vite';
 import { babel } from '@rollup/plugin-babel';
-
-// import one of these for testing
-import { maybeBabelFilter, maybeBabelRegexFilter, regexFilter }
-
+import { maybeBabelFilter } from 'ember-maybe-babel';
 
 export default defineConfig({
   plugins: [
@@ -26,10 +23,25 @@ export default defineConfig({
     babel({
       babelHelpers: 'runtime',
       extensions,
-      // and pass the function you are using here
       filter: maybeBabelFilter,
     }),
   ],
+});
+```
+
+`maybeBabelRegexFilter` and `regexFilter()` are rolldown hook filters, not functions. `@rollup/plugin-babel` ignores a `filter` option that is not a function, so babel would then run on every file. Set them as the filter of the plugin's `transform` hook instead:
+
+```js
+import { defineConfig } from 'vite';
+import { extensions, classicEmberSupport, ember } from '@embroider/vite';
+import { babel } from '@rollup/plugin-babel';
+import { maybeBabelRegexFilter } from 'ember-maybe-babel';
+
+const babelPlugin = babel({ babelHelpers: 'runtime', extensions });
+babelPlugin.transform.filter = maybeBabelRegexFilter;
+
+export default defineConfig({
+  plugins: [classicEmberSupport(), ember(), babelPlugin],
 });
 ```
 
@@ -47,56 +59,20 @@ Each of the different functions have different charactistics so that's why we ar
 
 `regexFilter` is an extension of `maybeBabelRegexFilter` but with the ability to extend what is being covered by the regexes
 
-for example, to also run babel on files that import from ember-concurrency
+For example, to also run babel on files that import from ember-concurrency:
 
 ```js
-import { defineConfig } from 'vite';
-import { extensions, classicEmberSupport, ember } from '@embroider/vite';
-import { babel } from '@rollup/plugin-babel';
-
-// import one of these for testing
-import { regexFitler }
-
-
-export default defineConfig({
-  plugins: [
-    classicEmberSupport(),
-    ember(),
-    babel({
-      babelHelpers: 'runtime',
-      extensions,
-      // and pass the function you are using here
-      filter: regexFilter({
-        code: ['ember-concurrency'],
-      }),
-    }),
-  ],
+const babelPlugin = babel({ babelHelpers: 'runtime', extensions });
+babelPlugin.transform.filter = regexFilter({
+  include: ['ember-concurrency'],
 });
 ```
 
-or to also run babel on files that use polyfilled APIs, or use the "formatMessage" technique for translations: 
+Or to also run babel on files that use polyfilled APIs, or use the "formatMessage" technique for translations:
 
 ```js
-import { defineConfig } from 'vite';
-import { extensions, classicEmberSupport, ember } from '@embroider/vite';
-import { babel } from '@rollup/plugin-babel';
-
-// import one of these for testing
-import { regexFitler }
-
-
-export default defineConfig({
-  plugins: [
-    classicEmberSupport(),
-    ember(),
-    babel({
-      babelHelpers: 'runtime',
-      extensions,
-      // and pass the function you are using here
-      filter: regexFilter({
-        code: ['myPolyfilledAPICall(', /\bintl\.formatMessage\b/],
-      }),
-    }),
-  ],
+const babelPlugin = babel({ babelHelpers: 'runtime', extensions });
+babelPlugin.transform.filter = regexFilter({
+  code: ['myPolyfilledAPICall(', /\bintl\.formatMessage\b/],
 });
 ```
